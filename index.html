@@ -1,22 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Meu Painel | Notas e Tarefas</title>
-  <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+  <title>UnitedKeep | Notas e Tarefas</title>
 
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
-
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
-
-  <link rel="manifest" href="favicon_io/site.webmanifest">
+  <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
   <link rel="stylesheet" href="css/style.css" />
 </head>
-
 <body>
 
   <main class="app">
@@ -24,7 +16,7 @@
     <aside class="sidebar">
       <div>
         <div class="logo">
-          <div class="logo-icon">✦</div>
+          <div class="logo-icon">UK</div>
           <h2>United<span>Keep</span></h2>
         </div>
 
@@ -115,6 +107,7 @@
 
           <form id="taskForm" class="task-form">
             <input type="text" id="taskInput" placeholder="Adicionar nova tarefa..." />
+            <input type="date" id="taskDeadline" />
             <button type="submit">+</button>
           </form>
 
@@ -151,6 +144,14 @@
               <small id="doneCount">0 finalizadas</small>
             </div>
             <span>🚀</span>
+          </div>
+
+          <div class="progress-item">
+            <div>
+              <strong>Prazos expirados</strong>
+              <small id="expiredCount">0 expiradas</small>
+            </div>
+            <span>⚠️</span>
           </div>
 
           <div class="premium-card">
@@ -203,5 +204,4 @@
 
   <script src="js/script.js"></script>
 </body>
-
 </html>

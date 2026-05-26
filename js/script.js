@@ -7,20 +7,55 @@ const searchInput = document.getElementById("searchInput");
 
 const taskForm = document.getElementById("taskForm");
 const taskInput = document.getElementById("taskInput");
+const taskDeadline = document.getElementById("taskDeadline");
 const taskList = document.getElementById("taskList");
 const taskCounter = document.getElementById("taskCounter");
 
 const notesCount = document.getElementById("notesCount");
 const doneCount = document.getElementById("doneCount");
+const expiredCount = document.getElementById("expiredCount");
 
 const menuLinks = document.querySelectorAll("nav a");
 
 let notes = JSON.parse(localStorage.getItem("notes")) || [];
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let editingTaskIndex = null;
 
 function saveData() {
   localStorage.setItem("notes", JSON.stringify(notes));
   localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function formatDate(dateString) {
+  if (!dateString) return "Sem prazo";
+
+  const [year, month, day] = dateString.split("-");
+  return `${day}/${month}/${year}`;
+}
+
+function getTodayDate() {
+  return new Date().toISOString().split("T")[0];
+}
+
+function getTaskStatus(task) {
+  if (task.done) {
+    return {
+      text: "Concluída",
+      className: "done"
+    };
+  }
+
+  if (task.deadline && task.deadline < getTodayDate()) {
+    return {
+      text: "Prazo expirado",
+      className: "expired"
+    };
+  }
+
+  return {
+    text: "Em aberto",
+    className: "open"
+  };
 }
 
 function renderNotes(filter = "") {
@@ -62,15 +97,44 @@ function deleteNote(index) {
 function renderTasks() {
   taskList.innerHTML = "";
 
+  if (tasks.length === 0) {
+    taskList.innerHTML = `<p style="color:#cbd5e1;">Nenhuma tarefa cadastrada.</p>`;
+  }
+
   tasks.forEach((task, index) => {
+    const status = getTaskStatus(task);
+
     const li = document.createElement("li");
     li.className = task.done ? "task done" : "task";
 
     li.innerHTML = `
-      <span>${task.text}</span>
-      <div>
-        <button onclick="toggleTask(${index})">✓</button>
-        <button onclick="deleteTask(${index})">x</button>
+      <div class="task-main">
+        <div>
+          <p class="task-title">${task.text}</p>
+
+          <div class="task-dates">
+            <span>Criada em: ${formatDate(task.createdAt)}</span>
+            <span>Prazo: ${formatDate(task.deadline)}</span>
+          </div>
+        </div>
+
+        <span class="status ${status.className}">
+          ${status.text}
+        </span>
+      </div>
+
+      <div class="task-actions">
+        <button class="btn-done" onclick="toggleTask(${index})">
+          ${task.done ? "Reabrir" : "Concluir"}
+        </button>
+
+        <button class="btn-edit" onclick="editTask(${index})">
+          Editar
+        </button>
+
+        <button class="btn-delete" onclick="deleteTask(${index})">
+          Excluir
+        </button>
       </div>
     `;
 
@@ -78,9 +142,14 @@ function renderTasks() {
   });
 
   const doneTasks = tasks.filter(task => task.done).length;
+  const expiredTasks = tasks.filter(task => {
+    const status = getTaskStatus(task);
+    return status.className === "expired";
+  }).length;
 
   taskCounter.textContent = `${tasks.length} tarefas`;
   doneCount.textContent = `${doneTasks} finalizadas`;
+  expiredCount.textContent = `${expiredTasks} expiradas`;
 }
 
 noteForm.addEventListener("submit", (event) => {
@@ -104,14 +173,34 @@ noteForm.addEventListener("submit", (event) => {
 taskForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  if (!taskInput.value.trim()) return;
+  if (!taskInput.value.trim()) {
+    alert("Digite uma tarefa.");
+    return;
+  }
 
-  tasks.push({
-    text: taskInput.value.trim(),
-    done: false
-  });
+  if (!taskDeadline.value) {
+    alert("Defina um prazo para a tarefa.");
+    return;
+  }
+
+  if (editingTaskIndex !== null) {
+    tasks[editingTaskIndex].text = taskInput.value.trim();
+    tasks[editingTaskIndex].deadline = taskDeadline.value;
+
+    editingTaskIndex = null;
+    taskForm.querySelector("button").textContent = "+";
+  } else {
+    tasks.push({
+      text: taskInput.value.trim(),
+      createdAt: getTodayDate(),
+      deadline: taskDeadline.value,
+      done: false
+    });
+  }
 
   taskInput.value = "";
+  taskDeadline.value = "";
+
   saveData();
   renderTasks();
 });
@@ -122,7 +211,22 @@ function toggleTask(index) {
   renderTasks();
 }
 
+function editTask(index) {
+  taskInput.value = tasks[index].text;
+  taskDeadline.value = tasks[index].deadline;
+
+  editingTaskIndex = index;
+  taskForm.querySelector("button").textContent = "✓";
+
+  document.getElementById("tarefas").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
 function deleteTask(index) {
+  if (!confirm("Deseja excluir esta tarefa?")) return;
+
   tasks.splice(index, 1);
   saveData();
   renderTasks();
