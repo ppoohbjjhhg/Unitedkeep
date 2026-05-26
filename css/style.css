@@ -3,8 +3,6 @@
 :root {
   --bg: #020617;
   --bg-soft: #07111f;
-  --card: rgba(255, 255, 255, 0.08);
-  --card-solid: #0b1220;
   --blue: #009dff;
   --blue-strong: #0066ff;
   --white: #ffffff;
@@ -37,6 +35,141 @@ body {
   color: var(--white);
   padding: 28px;
 }
+
+/* LOGIN */
+
+.login-screen {
+  min-height: calc(100vh - 56px);
+  display: grid;
+  place-items: center;
+}
+
+.login-wrapper {
+  width: 100%;
+  max-width: 1150px;
+  min-height: 620px;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  background: rgba(255,255,255,0.96);
+  border-radius: 42px;
+  overflow: hidden;
+  box-shadow: 0 30px 100px rgba(0,0,0,0.45);
+  padding: 18px;
+}
+
+.login-card {
+  color: #020617;
+  padding: 70px 58px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-logo {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-strong));
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  margin-bottom: 25px;
+}
+
+.login-card h1 {
+  font-size: 42px;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.login-card h1 span {
+  color: var(--blue-strong);
+}
+
+.login-card p {
+  color: #475569;
+  margin-bottom: 35px;
+}
+
+#loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-input input {
+  width: 100%;
+  padding: 16px 18px;
+  border: 1px solid #dbe3ef;
+  border-radius: 999px;
+  outline: none;
+}
+
+#loginForm button {
+  padding: 16px;
+  border-radius: 999px;
+  border: none;
+  color: white;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--blue), var(--blue-strong));
+  cursor: pointer;
+}
+
+#loginError {
+  color: var(--red);
+  text-align: center;
+  font-weight: 600;
+}
+
+.login-art {
+  position: relative;
+  border-radius: 34px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 25%, #9ee8ff, transparent 18%),
+    radial-gradient(circle at 70% 20%, #2563ff, transparent 28%),
+    radial-gradient(circle at 50% 75%, #001a55, transparent 40%),
+    linear-gradient(135deg, #020617, #0066ff);
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+.orb-one {
+  width: 520px;
+  height: 520px;
+  background: linear-gradient(135deg, #ffffff, #009dff);
+  top: -150px;
+  left: -120px;
+  opacity: .8;
+}
+
+.orb-two {
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, #0066ff, #020617);
+  right: -120px;
+  top: 40px;
+}
+
+.orb-three {
+  width: 420px;
+  height: 420px;
+  background: linear-gradient(135deg, #020617, #009dff);
+  bottom: -130px;
+  left: 100px;
+}
+
+.hidden-app,
+.hidden-login {
+  display: none !important;
+}
+
+/* APP */
 
 .app {
   width: 100%;
@@ -182,12 +315,12 @@ button {
   cursor: pointer;
 }
 
-#themeBtn {
-  width: 48px;
-  height: 48px;
+#logoutBtn {
+  padding: 14px 18px;
   border-radius: 16px;
-  background: linear-gradient(135deg, var(--blue), var(--blue-strong));
-  color: white;
+  background: rgba(239, 68, 68, 0.16);
+  color: var(--red);
+  font-weight: 700;
 }
 
 .hero-grid {
@@ -220,8 +353,7 @@ button {
 .mini-card p,
 .note-card p,
 .calendar-box p,
-.goal-card p,
-.benefit-card p {
+.goal-card p {
   color: var(--gray);
   line-height: 1.7;
 }
@@ -474,6 +606,14 @@ button {
 }
 
 @media (max-width: 1100px) {
+  .login-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .login-art {
+    min-height: 320px;
+  }
+
   .app {
     grid-template-columns: 1fr;
   }
@@ -507,6 +647,23 @@ button {
 @media (max-width: 760px) {
   body {
     padding: 14px;
+  }
+
+  .login-wrapper {
+    border-radius: 30px;
+    padding: 12px;
+  }
+
+  .login-card {
+    padding: 40px 24px;
+  }
+
+  .login-card h1 {
+    font-size: 32px;
+  }
+
+  .login-art {
+    min-height: 260px;
   }
 
   .sidebar {

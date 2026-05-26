@@ -1,3 +1,45 @@
+const loginScreen = document.getElementById("loginScreen");
+const app = document.getElementById("app");
+const loginForm = document.getElementById("loginForm");
+const loginUser = document.getElementById("loginUser");
+const loginPassword = document.getElementById("loginPassword");
+const loginError = document.getElementById("loginError");
+const logoutBtn = document.getElementById("logoutBtn");
+
+const USERNAME = "pedro";
+const PASSWORD = "unitedkeep";
+
+function checkLogin() {
+  const logged = sessionStorage.getItem("unitedkeep_logged");
+
+  if (logged === "true") {
+    loginScreen.classList.add("hidden-login");
+    app.classList.remove("hidden-app");
+  } else {
+    loginScreen.classList.remove("hidden-login");
+    app.classList.add("hidden-app");
+  }
+}
+
+loginForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  if (
+    loginUser.value.trim() === USERNAME &&
+    loginPassword.value.trim() === PASSWORD
+  ) {
+    sessionStorage.setItem("unitedkeep_logged", "true");
+    checkLogin();
+  } else {
+    loginError.textContent = "Usuário ou senha incorretos.";
+  }
+});
+
+logoutBtn.addEventListener("click", () => {
+  sessionStorage.removeItem("unitedkeep_logged");
+  checkLogin();
+});
+
 const noteForm = document.getElementById("noteForm");
 const noteTitle = document.getElementById("noteTitle");
 const noteText = document.getElementById("noteText");
@@ -267,5 +309,6 @@ menuLinks.forEach(link => {
   });
 });
 
+checkLogin();
 renderNotes();
 renderTasks();

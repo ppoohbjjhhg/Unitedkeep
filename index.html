@@ -4,14 +4,47 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>UnitedKeep | Notas e Tarefas</title>
+  <title>UnitedKeep | Login</title>
 
   <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <main class="app">
+  <section class="login-screen" id="loginScreen">
+    <div class="login-wrapper">
+
+      <div class="login-card">
+        <div class="login-logo">UK</div>
+
+        <h1>Bem-vindo ao <span>UnitedKeep</span></h1>
+        <p>Entre com seu usuário e senha para acessar seu painel pessoal.</p>
+
+        <form id="loginForm">
+          <div class="login-input">
+            <input type="text" id="loginUser" placeholder="Usuário" />
+          </div>
+
+          <div class="login-input">
+            <input type="password" id="loginPassword" placeholder="Senha" />
+          </div>
+
+          <button type="submit">Entrar</button>
+
+          <small id="loginError"></small>
+        </form>
+      </div>
+
+      <div class="login-art">
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+        <div class="orb orb-three"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <main class="app hidden-app" id="app">
 
     <aside class="sidebar">
       <div>
@@ -48,19 +81,15 @@
 
         <div class="actions">
           <input type="text" id="searchInput" placeholder="Pesquisar anotação..." />
-          <button id="themeBtn">🌙</button>
+          <button id="logoutBtn">Sair</button>
         </div>
       </header>
 
       <section class="hero-grid page-section" id="dashboard">
-
         <div class="welcome-card">
           <span class="tag">Painel pessoal</span>
           <h2>O que você precisa organizar hoje?</h2>
-          <p>
-            Crie anotações rápidas, acompanhe tarefas importantes e mantenha sua rotina produtiva.
-          </p>
-
+          <p>Crie anotações rápidas, acompanhe tarefas importantes e mantenha sua rotina produtiva.</p>
           <button onclick="focusNote()">Nova anotação</button>
         </div>
 
@@ -81,7 +110,6 @@
           <h3>Metas</h3>
           <p>Veja seu progresso.</p>
         </div>
-
       </section>
 
       <section class="dashboard">
@@ -89,7 +117,7 @@
         <div class="panel note-panel page-section" id="notas">
           <div class="panel-header">
             <h2>Nova anotação</h2>
-            <span>Auto salvamento local</span>
+            <span>Salvamento local</span>
           </div>
 
           <form id="noteForm">
