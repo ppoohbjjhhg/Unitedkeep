@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Meu Painel | Notas e Tarefas</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <main class="app">
+
+    <aside class="sidebar">
+      <div>
+        <div class="logo">
+          <div class="logo-icon">✦</div>
+          <h2>United<span>Keep</span></h2>
+        </div>
+
+        <nav>
+          <a class="active" href="#" data-section="dashboard">Dashboard</a>
+          <a href="#" data-section="notas">Notas</a>
+          <a href="#" data-section="tarefas">Tarefas</a>
+          <a href="#" data-section="calendario">Calendário</a>
+          <a href="#" data-section="metas">Metas</a>
+        </nav>
+      </div>
+
+      <div class="profile">
+        <div class="avatar">PH</div>
+        <div>
+          <strong>Pedro Henrique</strong>
+          <small>Organização pessoal</small>
+        </div>
+      </div>
+    </aside>
+
+    <section class="content">
+
+      <header class="topbar">
+        <div>
+          <h1>Olá, Pedro 👋</h1>
+          <p>Organize suas ideias, tarefas e metas em um só lugar.</p>
+        </div>
+
+        <div class="actions">
+          <input type="text" id="searchInput" placeholder="Pesquisar anotação..." />
+          <button id="themeBtn">🌙</button>
+        </div>
+      </header>
+
+      <section class="hero-grid page-section" id="dashboard">
+
+        <div class="welcome-card">
+          <span class="tag">Painel pessoal</span>
+          <h2>O que você precisa organizar hoje?</h2>
+          <p>
+            Crie anotações rápidas, acompanhe tarefas importantes e mantenha sua rotina produtiva.
+          </p>
+
+          <button onclick="focusNote()">Nova anotação</button>
+        </div>
+
+        <div class="mini-card">
+          <span>📝</span>
+          <h3>Notas rápidas</h3>
+          <p>Guarde ideias importantes.</p>
+        </div>
+
+        <div class="mini-card">
+          <span>✅</span>
+          <h3>To-do list</h3>
+          <p>Acompanhe suas tarefas.</p>
+        </div>
+
+        <div class="mini-card">
+          <span>🎯</span>
+          <h3>Metas</h3>
+          <p>Veja seu progresso.</p>
+        </div>
+
+      </section>
+
+      <section class="dashboard">
+
+        <div class="panel note-panel page-section" id="notas">
+          <div class="panel-header">
+            <h2>Nova anotação</h2>
+            <span>Auto salvamento local</span>
+          </div>
+
+          <form id="noteForm">
+            <input type="text" id="noteTitle" placeholder="Título da anotação" />
+            <textarea id="noteText" placeholder="Digite sua anotação aqui..."></textarea>
+            <button type="submit">Salvar anotação</button>
+          </form>
+        </div>
+
+        <div class="panel todo-panel page-section" id="tarefas">
+          <div class="panel-header">
+            <h2>To-do list</h2>
+            <span id="taskCounter">0 tarefas</span>
+          </div>
+
+          <form id="taskForm" class="task-form">
+            <input type="text" id="taskInput" placeholder="Adicionar nova tarefa..." />
+            <button type="submit">+</button>
+          </form>
+
+          <ul id="taskList"></ul>
+        </div>
+
+      </section>
+
+      <section class="bottom-grid">
+
+        <div class="panel notes-list">
+          <div class="panel-header">
+            <h2>Minhas anotações</h2>
+            <button id="clearNotes">Limpar tudo</button>
+          </div>
+
+          <div id="notesContainer"></div>
+        </div>
+
+        <div class="panel progress-card">
+          <h2>Resumo do dia</h2>
+
+          <div class="progress-item">
+            <div>
+              <strong>Anotações</strong>
+              <small id="notesCount">0 salvas</small>
+            </div>
+            <span>🧠</span>
+          </div>
+
+          <div class="progress-item">
+            <div>
+              <strong>Tarefas concluídas</strong>
+              <small id="doneCount">0 finalizadas</small>
+            </div>
+            <span>🚀</span>
+          </div>
+
+          <div class="premium-card">
+            <h3>Modo foco</h3>
+            <p>Use este painel para estudar, planejar projetos e organizar sua rotina.</p>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="panel page-section" id="calendario">
+        <div class="panel-header">
+          <h2>Calendário</h2>
+          <span>Planejamento mensal</span>
+        </div>
+
+        <div class="calendar-box">
+          <h3>Maio 2026</h3>
+          <p>Área reservada para organizar eventos, estudos, compromissos e lembretes.</p>
+        </div>
+      </section>
+
+      <section class="panel page-section" id="metas">
+        <div class="panel-header">
+          <h2>Minhas metas</h2>
+          <span>Objetivos pessoais</span>
+        </div>
+
+        <div class="goals-grid">
+          <div class="goal-card">
+            <h3>Estudos</h3>
+            <p>Organizar rotina de aprendizado e evolução profissional.</p>
+          </div>
+
+          <div class="goal-card">
+            <h3>Projetos</h3>
+            <p>Acompanhar ideias, sites, sistemas e melhorias em andamento.</p>
+          </div>
+
+          <div class="goal-card">
+            <h3>Produtividade</h3>
+            <p>Manter tarefas importantes sempre visíveis e controladas.</p>
+          </div>
+        </div>
+      </section>
+
+    </section>
+
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
